@@ -8,5 +8,6 @@ module.exports = {
     ],
     rules: {
         'indent': ['error', 4],
+        'no-underscore-dangle': 0,
     },
 };
