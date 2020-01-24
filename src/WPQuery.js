@@ -14,7 +14,11 @@ class WPQuery {
     }
 
     request(method, data) {
-        const string = `/wp-json/wp/v2/${data.postType}`;
+        let string = `/wp-json/wp/v2/${data.postType}?`;
+
+        if (data.fields) {
+            string += `_fields=${data.fields.join()}`;
+        }
 
         return new Promise((resolve, reject) => {
             axios[method](this._baseURL + string)
