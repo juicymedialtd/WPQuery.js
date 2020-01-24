@@ -6,8 +6,21 @@
  * Released under the MIT license
  */
 
+import axios from 'axios';
+
 class WPQuery {
-    constructor() {
+    constructor(baseURL) {
+        this._baseURL = baseURL;
+    }
+
+    request(method, data) {
+        const string = `/wp-json/wp/v2/${data.postType}`;
+
+        return new Promise((resolve, reject) => {
+            axios[method](this._baseURL + string)
+                .then((response) => resolve(response.data))
+                .catch((error) => reject(error.response.data));
+        });
     }
 }
 
