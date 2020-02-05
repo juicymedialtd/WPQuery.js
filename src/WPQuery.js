@@ -14,6 +14,7 @@ class WPQuery {
     }
 
     request(method, resource, params) {
+        const globals = ['fields', 'embed', 'method', 'envelope', 'jsonp'];
         let string = `/wp-json/wp/v2/${resource}`;
 
         if (params.id) {
@@ -23,17 +24,15 @@ class WPQuery {
         string += '?';
 
         Object.keys(params).forEach((element) => {
-            const param = element.replace(/\.?([A-Z]+)/g, (x, y) => `_${y.toLowerCase()}`).replace(/^_/, '');
+            let param = element.replace(/\.?([A-Z]+)/g, (x, y) => `_${y.toLowerCase()}`).replace(/^_/, '');
+
+            if (globals.includes(element)) {
+                param = `_${param}`;
+            }
 
             if (Array.isArray(params[element])) {
-                string += `&_${param}=${params[element].join()}`;
-            } else if (typeof params[element] === 'number') {
-                if (element !== 'id') {
-                    string += `&${param}=${params[element]}`;
-                }
-            } else if (typeof params[element] === 'boolean') {
-                string += `&${param}=${params[element]}`;
-            } else if (typeof params[element] === 'string') {
+                string += `&${param}=${params[element].join()}`;
+            } else if (element !== 'id') {
                 string += `&${param}=${params[element]}`;
             }
         });
