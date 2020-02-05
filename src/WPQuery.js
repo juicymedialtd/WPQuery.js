@@ -32,7 +32,7 @@ class WPQuery {
                     string += `&${param}=${params[element]}`;
                 }
             } else if (typeof params[element] === 'boolean') {
-                string += `&${param}=true`;
+                string += `&${param}=${params[element]}`;
             } else if (typeof params[element] === 'string') {
                 string += `&${param}=${params[element]}`;
             }
