@@ -1,7 +1,7 @@
 {
     "name": "wpqueryjs",
     "version": "1.0.0",
-    "description": "Promise based HTTP client for WordPress REST API.",
+    "description": "An axios wrapper for the WordPress REST API.",
     "scripts": {
         "build": "npm-run-all lint compile minify",
         "compile": "rollup --config rollup.config.js --sourcemap",
