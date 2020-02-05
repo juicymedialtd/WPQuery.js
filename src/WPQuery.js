@@ -25,7 +25,13 @@ class WPQuery {
         let string = `/wp-json/wp/v2/${resource}?`;
 
         Object.keys(options).forEach((element) => {
-            const param = element.replace(/\.?([A-Z]+)/g, (x, y) => `_${y.toLowerCase()}`).replace(/^_/, '');
+            let param;
+
+            if (element !== 'orderBy') {
+                param = element.replace(/\.?([A-Z]+)/g, (x, y) => `_${y.toLowerCase()}`).replace(/^_/, '');
+            } else {
+                param = element.toLowerCase();
+            }
 
             if (Array.isArray(options[element])) {
                 string += `&_${param}=${options[element].join()}`;
@@ -33,6 +39,8 @@ class WPQuery {
                 string += `&${param}=${options[element]}`;
             } else if (typeof options[element] === 'boolean') {
                 string += `&_${param}`;
+            } else if (typeof options[element] === 'string') {
+                string += `&${param}=${options[element]}`;
             }
         });
 
