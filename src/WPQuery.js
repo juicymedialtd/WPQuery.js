@@ -14,31 +14,25 @@ class WPQuery {
     }
 
     request(method, options) {
-        let string = `/wp-json/wp/v2/${options.postType}?`;
+        let resource;
 
-        if (options.fields) {
-            string += `_fields=${options.fields.join()}`;
+        if (!options.resource) {
+            resource = 'posts';
+        } else {
+            resource = options.resource;
         }
 
-        if (options.envelope) {
-            string += '&_envelope';
-        }
+        let string = `/wp-json/wp/v2/${resource}?`;
 
-        if (options.page) {
-            string += `&page=${options.page}`;
-        }
-
-        if (options.perPage) {
-            string += `&per_page=${options.perPage}`;
-        }
-
-        if (options.offset) {
-            string += `&offset=${options.offset}`;
-        }
-
-        if (options.order) {
-            string += `&order=${options.order}`;
-        }
+        Object.keys(options).forEach((element) => {
+            if (Array.isArray(options[element])) {
+                string += `&_${element}=${options[element].join()}`;
+            } else if (typeof options[element] === 'number') {
+                string += `&${element}=${options[element]}`;
+            } else if (typeof options[element] === 'boolean') {
+                string += `&_${element}`;
+            }
+        });
 
         return new Promise((resolve, reject) => {
             axios[method](this._baseURL + string)
