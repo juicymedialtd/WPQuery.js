@@ -13,34 +13,28 @@ class WPQuery {
         this._baseURL = baseURL;
     }
 
-    request(method, options) {
-        let resource;
+    request(method, resource, params) {
+        let string = `/wp-json/wp/v2/${resource}`;
 
-        if (!options.resource) {
-            resource = 'posts';
-        } else {
-            resource = options.resource;
+        if (params.id) {
+            string += `/${params.id}/`;
         }
 
-        let string = `/wp-json/wp/v2/${resource}?`;
+        string += '?';
 
-        Object.keys(options).forEach((element) => {
-            let param;
+        Object.keys(params).forEach((element) => {
+            const param = element.replace(/\.?([A-Z]+)/g, (x, y) => `_${y.toLowerCase()}`).replace(/^_/, '');
 
-            if (element !== 'orderBy') {
-                param = element.replace(/\.?([A-Z]+)/g, (x, y) => `_${y.toLowerCase()}`).replace(/^_/, '');
-            } else {
-                param = element.toLowerCase();
-            }
-
-            if (Array.isArray(options[element])) {
-                string += `&_${param}=${options[element].join()}`;
-            } else if (typeof options[element] === 'number') {
-                string += `&${param}=${options[element]}`;
-            } else if (typeof options[element] === 'boolean') {
-                string += `&_${param}`;
-            } else if (typeof options[element] === 'string') {
-                string += `&${param}=${options[element]}`;
+            if (Array.isArray(params[element])) {
+                string += `&_${param}=${params[element].join()}`;
+            } else if (typeof params[element] === 'number') {
+                if (element !== 'id') {
+                    string += `&${param}=${params[element]}`;
+                }
+            } else if (typeof params[element] === 'boolean') {
+                string += `&${param}=true`;
+            } else if (typeof params[element] === 'string') {
+                string += `&${param}=${params[element]}`;
             }
         });
 
@@ -49,6 +43,10 @@ class WPQuery {
                 .then((response) => resolve(response.data))
                 .catch((error) => reject(error.response.data));
         });
+    }
+
+    get(resource, params) {
+        this.request('get', resource, params);
     }
 }
 
