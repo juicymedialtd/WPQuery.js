@@ -1488,16 +1488,16 @@ var WPQuery = (function () {
         });
         return new Promise(function (resolve, reject) {
           axios$1[method](_this._baseURL + string).then(function (response) {
-            return resolve(response.data);
+            return resolve(response);
           })["catch"](function (error) {
-            return reject(error.response.data);
+            return reject(error.response);
           });
         });
       }
     }, {
       key: "get",
       value: function get(resource, params) {
-        this.request('get', resource, params);
+        return this.request('get', resource, params);
       }
     }]);
 
