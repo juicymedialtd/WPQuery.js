@@ -13,7 +13,7 @@ class WPQuery {
         this._baseURL = baseURL;
     }
 
-    request(method, resource, params) {
+    request(method, resource = 'posts', params = {}) {
         const globals = ['fields', 'embed', 'method', 'envelope', 'jsonp'];
         let string = `/wp-json/wp/v2/${resource}`;
 
