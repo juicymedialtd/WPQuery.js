@@ -12,7 +12,7 @@ An [axios](https://github.com/axios/axios) wrapper for the WordPress REST API.
 
 ### Getting Started
 
-* [Download the latest release.](https://github.com/juicymedialtd/WPQuery.js/releases/download/v1.0.0/WPQuery-1.0.0.zip)
+* [Download the latest release.](https://github.com/juicymedialtd/WPQuery.js/releases/download/v1.0.2/WPQuery-1.0.2.zip)
 * Clone the repo: `git clone https://github.com/juicymedialtd/WPQuery.js.git`
 * Install with [npm](https://www.npmjs.com/): `npm install wpqueryjs`
 
