@@ -13,11 +13,31 @@ class WPQuery {
         this._baseURL = baseURL;
     }
 
-    request(method, data) {
-        let string = `/wp-json/wp/v2/${data.postType}?`;
+    request(method, options) {
+        let string = `/wp-json/wp/v2/${options.postType}?`;
 
-        if (data.fields) {
-            string += `_fields=${data.fields.join()}`;
+        if (options.fields) {
+            string += `_fields=${options.fields.join()}`;
+        }
+
+        if (options.envelope) {
+            string += '&_envelope';
+        }
+
+        if (options.page) {
+            string += `&page=${options.page}`;
+        }
+
+        if (options.perPage) {
+            string += `&per_page=${options.perPage}`;
+        }
+
+        if (options.offset) {
+            string += `&offset=${options.offset}`;
+        }
+
+        if (options.order) {
+            string += `&order=${options.order}`;
         }
 
         return new Promise((resolve, reject) => {
