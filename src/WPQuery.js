@@ -45,7 +45,7 @@ class WPQuery {
     }
 
     get(resource, params) {
-        this.request('get', resource, params);
+        return this.request('get', resource, params);
     }
 }
 
