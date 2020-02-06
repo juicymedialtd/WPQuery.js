@@ -18,7 +18,7 @@ An [axios](https://github.com/axios/axios) wrapper for the WordPress REST API.
 
 ### Methods
 
-#### `request`
+#### `request(method, resource, params)`
 
 A method that returns a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) with the data that you have queried for. All you have to do is pass the HTTP request you want to perform, along with a [resource](https://developer.wordpress.org/rest-api/reference/) e.g. Tags, Posts or a Custom Post Type and the parameters you wish to include in your query.
 
@@ -56,7 +56,7 @@ const query = new WPQuery('https://demo.wp-api.org')
 
 Check the [WordPress REST API Handbook](https://developer.wordpress.org/rest-api/reference/) for all available resources and parameters.
 
-#### `get`
+#### `get(resource, params)`
 
 A helper for the `request` method which can be used like the examples below:
 
