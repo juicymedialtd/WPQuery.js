@@ -18,7 +18,7 @@ An [axios](https://github.com/axios/axios) wrapper for the WordPress REST API.
 
 ### Methods
 
-#### `request(method, resource, params)`
+#### `request(method, resource, params, config)`
 
 A method that returns a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) with the data that you have queried for. All you have to do is pass the HTTP request you want to perform, along with a [resource](https://developer.wordpress.org/rest-api/reference/) e.g. Tags, Posts or a Custom Post Type and the parameters you wish to include in your query.
 
@@ -56,7 +56,7 @@ const query = new WPQuery('https://demo.wp-api.org')
 
 Check the [WordPress REST API Handbook](https://developer.wordpress.org/rest-api/reference/) for all available resources and parameters.
 
-#### `get(resource, params)`
+#### `get(resource, params, config)`
 
 A helper for the `request` method which can be used like the examples below:
 
@@ -78,6 +78,53 @@ Retrieves posts published in a specific category.
 const query = new WPQuery('https://demo.wp-api.org')
     .get('posts', {
         category: 11,
+    });
+```
+
+Check the [WordPress REST API Handbook](https://developer.wordpress.org/rest-api/reference/) for all available resources and parameters.
+
+#### `post(resource, params, config)`
+
+Note: Authorization will be required for all POST requests to your WordPress site, see [Authorization](https://developer.wordpress.org/rest-api/using-the-rest-api/authentication/) for more information.
+
+A helper method for the `request` method which can be used like the examples below:
+
+Creates a new post.
+```
+const query = new WPQuery('https://demo.wp-api.org')
+    .post('posts', {}, {
+        title: 'The title of my new post',
+        content: 'The content of my new post.',
+    }, {
+        headers: {
+            'X-WP-NONCE': '',
+        }
+    });
+```
+
+Creates a new category.
+```
+const query = new WPQuery('https://demo.wp-api.org')
+    .post('categories', {
+        name: 'Music'
+    }, {
+        headers: {
+            'X-WP-NONCE': '',
+        }
+    });
+```
+
+Creates a new user.
+```
+const query = new WPQuery('https://demo.wp-api.org')
+    .post('users', {
+        username: 'johnsmith',
+        email: 'email@address.com',
+        password: '4QKu$jq6?+Gu,uVs,9oG',
+    }, {
+        headers: {
+            'X-WP-NONCE': '',
+        }
     });
 ```
 
