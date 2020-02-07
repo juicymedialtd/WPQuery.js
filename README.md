@@ -92,7 +92,7 @@ A helper method for the `request` method which can be used like the examples bel
 Creates a new post.
 ```
 const query = new WPQuery('https://demo.wp-api.org')
-    .post('posts', {}, {
+    .post('posts', {
         title: 'The title of my new post',
         content: 'The content of my new post.',
     }, {
