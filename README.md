@@ -12,7 +12,7 @@ An [axios](https://github.com/axios/axios) wrapper for the WordPress REST API.
 
 ### Getting Started
 
-* [Download the latest release.](https://github.com/juicymedialtd/WPQuery.js/releases/download/v1.0.2/WPQuery-1.0.2.zip)
+* [Download the latest release.](https://github.com/juicymedialtd/WPQuery.js/releases/download/v1.1.0/WPQuery-1.1.0.zip)
 * Clone the repo: `git clone https://github.com/juicymedialtd/WPQuery.js.git`
 * Install with [npm](https://www.npmjs.com/): `npm install wpqueryjs`
 
@@ -87,7 +87,7 @@ Check the [WordPress REST API Handbook](https://developer.wordpress.org/rest-api
 
 Note: Authorization will be required for all POST requests to your WordPress site, see [Authorization](https://developer.wordpress.org/rest-api/using-the-rest-api/authentication/) for more information.
 
-A helper method for the `request` method which can be used like the examples below:
+A helper method for the `request` method which can be used like the examples below if you are authorizing your requests with a [nonce](https://codex.wordpress.org/WordPress_Nonces):
 
 Creates a new post.
 ```

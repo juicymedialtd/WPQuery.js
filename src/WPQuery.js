@@ -1,5 +1,5 @@
 /*
- * WPQuery.js v1.0.2
+ * WPQuery.js v1.1.0
  * https://github.com/juicymedialtd/WPQuery.js
  *
  * Copyright 2020 Juicy Media
