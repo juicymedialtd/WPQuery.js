@@ -1463,6 +1463,7 @@ var WPQuery = (function () {
 
         var resource = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'posts';
         var params = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+        var config = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
         var globals = ['fields', 'embed', 'method', 'envelope', 'jsonp'];
         var string = "/wp-json/wp/v2/".concat(resource);
 
@@ -1487,7 +1488,7 @@ var WPQuery = (function () {
           }
         });
         return new Promise(function (resolve, reject) {
-          axios$1[method](_this._baseURL + string).then(function (response) {
+          axios$1[method](_this._baseURL + string, {}, config).then(function (response) {
             return resolve(response);
           })["catch"](function (error) {
             return reject(error.response);
@@ -1496,8 +1497,13 @@ var WPQuery = (function () {
       }
     }, {
       key: "get",
-      value: function get(resource, params) {
-        return this.request('get', resource, params);
+      value: function get(resource, params, config) {
+        return this.request('get', resource, params, config);
+      }
+    }, {
+      key: "post",
+      value: function post(resource, params, config) {
+        return this.request('post', resource, params, config);
       }
     }]);
 
