@@ -13,7 +13,7 @@ class WPQuery {
         this._baseURL = baseURL;
     }
 
-    request(method, resource = 'posts', params = {}) {
+    request(method, resource = 'posts', params = {}, config = {}) {
         const globals = ['fields', 'embed', 'method', 'envelope', 'jsonp'];
         let string = `/wp-json/wp/v2/${resource}`;
 
@@ -38,14 +38,18 @@ class WPQuery {
         });
 
         return new Promise((resolve, reject) => {
-            axios[method](this._baseURL + string)
+            axios[method](this._baseURL + string, {}, config)
                 .then((response) => resolve(response))
                 .catch((error) => reject(error.response));
         });
     }
 
-    get(resource, params) {
-        return this.request('get', resource, params);
+    get(resource, params, config) {
+        return this.request('get', resource, params, config);
+    }
+
+    post(resource, params, config) {
+        return this.request('post', resource, params, config);
     }
 }
 
