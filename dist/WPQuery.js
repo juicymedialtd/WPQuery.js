@@ -1447,9 +1447,7 @@ var WPQuery = (function () {
 
   var axios$1 = axios_1;
 
-  var WPQuery =
-  /*#__PURE__*/
-  function () {
+  var WPQuery = /*#__PURE__*/function () {
     function WPQuery(baseURL) {
       _classCallCheck(this, WPQuery);
 
@@ -1464,31 +1462,35 @@ var WPQuery = (function () {
         var resource = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'posts';
         var params = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
         var config = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
-        var globals = ['fields', 'embed', 'method', 'envelope', 'jsonp'];
+        var data = params;
         var string = "/wp-json/wp/v2/".concat(resource);
 
-        if (params.id) {
+        if (data.id) {
           string += "/".concat(params.id, "/");
         }
 
-        string += '?';
-        Object.keys(params).forEach(function (element) {
-          var param = element.replace(/\.?([A-Z]+)/g, function (x, y) {
-            return "_".concat(y.toLowerCase());
-          }).replace(/^_/, '');
+        if (method === 'get') {
+          var globals = ['fields', 'embed', 'method', 'envelope', 'jsonp'];
+          string += '?';
+          Object.keys(data).forEach(function (element) {
+            var param = element.replace(/\.?([A-Z]+)/g, function (x, y) {
+              return "_".concat(y.toLowerCase());
+            }).replace(/^_/, '');
 
-          if (globals.includes(element)) {
-            param = "_".concat(param);
-          }
+            if (globals.includes(element)) {
+              param = "_".concat(param);
+            }
 
-          if (Array.isArray(params[element])) {
-            string += "&".concat(param, "=").concat(params[element].join());
-          } else if (element !== 'id') {
-            string += "&".concat(param, "=").concat(params[element]);
-          }
-        });
+            if (Array.isArray(params[element])) {
+              string += "&".concat(param, "=").concat(params[element].join());
+            } else if (element !== 'id') {
+              string += "&".concat(param, "=").concat(params[element]);
+            }
+          });
+        }
+
         return new Promise(function (resolve, reject) {
-          axios$1[method](_this._baseURL + string, {}, config).then(function (response) {
+          axios$1[method](_this._baseURL + string, data, config).then(function (response) {
             return resolve(response);
           })["catch"](function (error) {
             return reject(error.response);
